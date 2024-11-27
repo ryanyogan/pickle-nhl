@@ -1,7 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    ppr: true,
+    dynamicIO: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "a.espncdn.com",
+        port: "",
+        pathname: "/i/teamlogos/**",
+        search: "",
+      }
+    ],
+    formats: ["image/avif", "image/webp"],
+  }
 };
 
 export default nextConfig;
