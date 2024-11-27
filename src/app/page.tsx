@@ -3,6 +3,7 @@ import { getTeamData } from "./espn";
 import clsx from "clsx";
 import Link from "next/link";
 import { Suspense } from "react";
+import { Scores } from "./scores";
 
 export default async function HomePage() {
   const team = await getTeamData("21");
@@ -41,7 +42,7 @@ export default async function HomePage() {
       <section className="w-full mx-auto p-6 border-r border-gray-200 dark:border-gray-800">
         <h2 className="font-semibold text-2xl">Scores</h2>
         <Suspense fallback={null}>
-          hello
+          <Scores />
         </Suspense>
       </section>
 

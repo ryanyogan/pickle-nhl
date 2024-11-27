@@ -125,6 +125,56 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
   }
 }
 
+export async function getTodaySchedule() {
+  "use cache";
+  cacheLife("days");
+
+  const res = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard`
+  )
+  if (!res.ok) {
+    throw new Error(`Failed to fetch today's schedule: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+
+  const games = data.events.map((event: any) => {
+    const [homeTeam, awayTeam] = event.competitions[0].competitors;
+
+    if (!homeTeam || !awayTeam) {
+      throw new Error(
+        "Expected to find both the home team and the away team in the event comptitors"
+      )
+    }
+
+    return {
+      status: event.competitions[0].status.type.shortDetail,
+      homeTeam: formatTeamData(homeTeam),
+      awayTeam: formatTeamData(awayTeam),
+    }
+  })
+
+  return {
+    date: data.date,
+    games,
+  }
+}
+
+function formatTeamData(teamData: CompetitorData) {
+  return {
+    name: teamData.team.displayName,
+    teamId: teamData.team.id,
+    rank: teamData.curatedRank?.current,
+    logo: teamData.team.logo ?? DEFAULT_LOGO,
+    color: teamData.team.color ?? "#000000",
+    score: teamData.score,
+    winner: teamData.winner,
+    record: teamData.records
+      ? `(${teamData.records[0].summary}, ${teamData.records[3]?.summary ?? "N/A"})`
+      : "N/A",
+  }
+}
+
 export async function getAllTeams(): Promise<TeamBasicInfo[]> {
   "use cache";
   cacheLife('weeks');
