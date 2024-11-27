@@ -124,3 +124,27 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
     games
   }
 }
+
+export async function getAllTeams(): Promise<TeamBasicInfo[]> {
+  "use cache";
+  cacheLife('weeks');
+
+  const pagePromises = Array.from({ length: 8 }, (_, i) =>
+    fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${i + 1}`
+    ).then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch team data: ${res.statusText}`);
+      }
+      return res.json();
+    })
+  );
+
+  const dataArray = await Promise.all(pagePromises);
+
+  const teams: TeamBasicInfo[] = dataArray.flatMap((data) =>
+    data.sports[0].leagues[0].teams.map((team: any) => team.team)
+  );
+
+  return teams.sort((a, b) => a.displayName.localeCompare(b.displayName));
+}
