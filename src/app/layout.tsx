@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +13,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className="antialiased">
+      <body className="flex flex-col min-h-screen text-black dark:text-white bg-white dark:bg-black">
+        <div className="flex-grow overflow-y-scroll h-[calc(100vh_-_48px)] border-b border-gray-200 dark:border-gray-800">
+          {children}
+        </div>
+        <footer className="text-gray-600 dark:text-gray-400 text-xs mx-auto text-center pt-4 h-[48px]">
+          {'Built using the '}
+          <a
+            href="https://espn.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-b border-gray-400 dark:border-gray-600 hover:border-gray-600 hover:dark:border-gray-400 hover:text-gray-800 hover:dark:text-gray-200 transition-all"
+          >
+            ESPN API
+          </a>
+          {', Next.js, and Vercel. Made by '}
+          <a
+            href="https://github.com/leerob/ncaam"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-b border-gray-400 dark:border-gray-600 hover:border-gray-600 hover:dark:border-gray-400 hover:text-gray-800 hover:dark:text-gray-200 transition-all"
+          >
+            Ryan Yogan
+          </a>
+        </footer>
       </body>
     </html>
   );
