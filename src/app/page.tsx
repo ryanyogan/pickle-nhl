@@ -44,7 +44,7 @@ async function Schedule() {
         <h1 className="font-semibold text-2xl ml-2">{name}</h1>
       </div>
       <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
-      <TeamSelect allTeams={allTeams} teamId={"21"} />
+      <TeamSelect allTeams={allTeams} teamId={"66"} />
       <h2 className="font-semibold text-xl">Schedule</h2>
       <div>
         {games.map((game, index) => (
@@ -87,12 +87,11 @@ function Row(props: {
           priority={props.index < 10}
           width={20}
           height={20}
-          className={clsx("size-5", {
+          className={clsx("h-5 w-5", {
             "dark:invert": props.color === "000000",
           })}
         />
-
-        <Link href={`/${props.teamId}`} className="font-semibold ml-2">
+        <Link href={`/${props.teamId}`} className="font-semibold ml-4">
           {props.rank !== 99 ? (
             <span className="text-sm uppercase font-normal text-gray-500 mr-2">
               {props.rank}
@@ -101,12 +100,10 @@ function Row(props: {
           {props.name}
         </Link>
       </div>
-
       <div className="flex flex-row-reverse justify-end min-[450px]:flex-row">
         {props.homeScore ? (
           <p className="text-gray-700 dark:text-gray-300 tabular-nums">{`${props.homeScore}-${props.awayScore}`}</p>
         ) : null}
-
         {props.homeScore ? (
           props.winner ? (
             <p className="font-semibold text-green-700 dark:text-green-500 ml-0 min-[450px]:ml-2 w-5 mr-4 min-[450px]:mr-0 text-center">
@@ -119,7 +116,7 @@ function Row(props: {
           )
         ) : props.homeScore === 0 ? (
           <p className="font-semibold text-gray-500 ml-0 min-[450px]:ml-2 w-5 mr-4 min-[450px]:mr-0 text-center">
-            -
+            —
           </p>
         ) : (
           <p className="text-gray-700 dark:text-gray-300">{props.date}</p>
