@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   experimental: {
     ppr: true,
     dynamicIO: true,
+    inlineCss: true,
+    turbo: {
+      unstablePersistentCaching: true,
+    },
   },
   images: {
     remotePatterns: [
@@ -13,10 +17,10 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/i/teamlogos/**",
         search: "",
-      }
+      },
     ],
     formats: ["image/avif", "image/webp"],
-  }
+  },
 };
 
 export default nextConfig;
