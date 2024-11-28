@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { fetchArticles } from "../espn";
+import { fetchArticles } from "src/lib/espn";
 
 export default async function ArticlesPage() {
   const articles = await fetchArticles();

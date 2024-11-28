@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { TeamBasicInfo } from "../espn";
+import { TeamBasicInfo } from "src/lib/espn";
 
 export default function TeamSelect({
   allTeams,

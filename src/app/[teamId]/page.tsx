@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllTeamIds, getTeamData } from "../espn";
+import { getAllTeamIds, getTeamData } from "src/lib/espn";
 import TeamSelect from "./select";
 
 function Row({

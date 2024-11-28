@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import { getAllTeamIds, getTeamData } from "src/lib/espn";
 import TeamSelect from "./[teamId]/select";
 import ArticlesPage from "./articles/page";
-import { getAllTeamIds, getTeamData } from "./espn";
 import ScoresPage from "./scores/page";
 
 export default async function HomePage() {

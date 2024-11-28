@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { getTodaySchedule } from "../espn";
+import { getTodaySchedule } from "src/lib/espn";
 
 export async function Scores() {
   const { games } = await getTodaySchedule();
