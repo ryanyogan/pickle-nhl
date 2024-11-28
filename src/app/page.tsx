@@ -45,7 +45,7 @@ async function Schedule() {
         <h1 className="font-semibold text-2xl ml-2">{name}</h1>
       </div>
       <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
-      <TeamSelect allTeams={allTeams} teamId={"66"} />
+      <TeamSelect allTeams={allTeams} teamId={"21"} />
       <h2 className="font-semibold text-xl">Schedule</h2>
       <div>
         {games.map((game, index) => (
