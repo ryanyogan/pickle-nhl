@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllTeamIds, getTeamData } from "src/lib/espn";
 import TeamSelect from "./[teamId]/select";
-import ArticlesPage from "./articles/page";
 import ScoresPage from "./scores/page";
+import DivisionPage from "./division/page";
 
 export default async function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default async function HomePage() {
       <main className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 divide-x divide-gray-200 dark:divide-gray-800">
         <Schedule />
         <ScoresPage />
-        <ArticlesPage />
+        <DivisionPage />
       </main>
     </>
   );
@@ -28,6 +28,7 @@ async function Schedule() {
   ]);
 
   const { name, logo, color, record, standing, games } = team;
+
 
   return (
     <section className="w-full mx-auto p-6">
@@ -45,7 +46,9 @@ async function Schedule() {
         <h1 className="font-semibold text-2xl ml-2">{name}</h1>
       </div>
       <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
+
       <TeamSelect allTeams={allTeams} teamId={"21"} />
+
       <h2 className="font-semibold text-xl">Schedule</h2>
       <div>
         {games.map((game, index) => (
@@ -81,7 +84,7 @@ function Row(props: {
         { "border-b border-gray-200 dark:border-gray-800": !props.isLast }
       )}
     >
-      <div className="flex">
+      <div className="flex items-center">
         <Image
           src={props.logo}
           alt={props.name}

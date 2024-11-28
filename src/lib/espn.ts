@@ -43,15 +43,6 @@ type CompetitorData = {
   curatedRank?: { current: number };
 };
 
-type ConferenceRankingEntry = {
-  name: string;
-  teamId: string;
-  logo: string;
-  conferenceWinLoss: string;
-  gamesBack: string;
-  overallWinnLoss: string;
-};
-
 const DEFAULT_LOGO =
   "https://a.espncdn.com/i/teamlogos/default-team-logo-500.png";
 
@@ -196,9 +187,8 @@ function formatTeamData(teamData: CompetitorData) {
     score: teamData.score,
     winner: teamData.winner,
     record: teamData.records
-      ? `(${teamData.records[0].summary}, ${
-          teamData.records[3]?.summary ?? "N/A"
-        })`
+      ? `(${teamData.records[0].summary}, ${teamData.records[3]?.summary ?? "N/A"
+      })`
       : "N/A",
   };
 }
@@ -209,8 +199,7 @@ export async function getAllTeamIds(): Promise<TeamBasicInfo[]> {
 
   const pagePromises = Array.from({ length: 8 }, (_, i) =>
     fetch(
-      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${
-        i + 1
+      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${i + 1
       }`
     ).then((res) => {
       if (!res.ok) {
@@ -234,8 +223,7 @@ export async function getAllTeams(): Promise<TeamBasicInfo[]> {
 
   const pagePromises = Array.from({ length: 8 }, (_, i) =>
     fetch(
-      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${
-        i + 1
+      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${i + 1
       }`
     ).then((res) => {
       if (!res.ok) {

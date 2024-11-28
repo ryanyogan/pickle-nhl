@@ -51,11 +51,11 @@ function BottomNav() {
         <span className="text-xs">Scores</span>
       </Link>
       <Link
-        href="/articles"
+        href="/division"
         className="flex flex-col items-center space-y-1 mb-2"
       >
         <TableIcon className="h-5 w-5" />
-        <span className="text-xs">News</span>
+        <span className="text-xs">Standings</span>
       </Link>
     </div>
   );
