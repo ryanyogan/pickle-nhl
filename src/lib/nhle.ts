@@ -20,12 +20,14 @@ export async function fetchStandings(): Promise<TeamStandings[]> {
   "use cache";
   cacheLife("hours");
 
-  const res = await fetch(`https://api-web.nhle.com/v1/standings/2024-11-28`);
+  const today = new Date().toISOString().split("T")[0] ?? "2024-11-28";
+
+  const res = await fetch(`https://api-web.nhle.com/v1/standings/${today}`);
   if (!res.ok) {
     throw new Error(`Failed to fetch team data: ${res.statusText}`);
   }
-  const data = await res.json();
 
+  const data = await res.json();
   const teamIds = await getAllTeamIds();
 
   return data.standings.map(
