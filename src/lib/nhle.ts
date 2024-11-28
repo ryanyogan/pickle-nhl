@@ -14,6 +14,8 @@ export type TeamStandings = {
   winPercentage: number;
   points: number;
   teamId: string;
+  shootoutLosses: number;
+  shootoutWins: number;
 };
 
 export async function fetchStandings(): Promise<TeamStandings[]> {
@@ -44,6 +46,8 @@ export async function fetchStandings(): Promise<TeamStandings[]> {
       logo: standings.teamLogo,
       winPercentage: standings.winPctg,
       points: standings.points,
+      shootoutLosses: standings.shootoutLosses ?? 0,
+      shootoutWins: standings.shootoutWins ?? 0
     })
   );
 }

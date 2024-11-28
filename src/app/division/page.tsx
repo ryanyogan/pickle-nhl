@@ -28,6 +28,8 @@ function Row({
   name,
   wins,
   losses,
+  shootoutLosses,
+  shootoutWins,
   division,
   teamId
 }: any) {
@@ -39,13 +41,17 @@ function Row({
       )}
     >
       <div className="flex items-center">
+        <div className="text-sm font-thin tracking-tighter">
+          {index < 9 ? `0${index + 1}` : index + 1}.
+        </div>
+
         <Image
           src={logo}
           alt={name}
           priority={index < 10}
           width={20}
           height={20}
-          className="h-5 w-5"
+          className="h-5 w-5 ml-4"
         />
         <Link href={`/${teamId}`} className="font-semibold ml-4">
           {name}
@@ -56,9 +62,10 @@ function Row({
       </div>
       <div className="flex flex-row-reverse justify-end min-[450px]:flex-row">
         <p className="text-gray-700 dark:text-gray-300 tabular-nums">
-          {`${wins}-${losses}`}
+          {`${wins}-${losses}-${shootoutWins + shootoutLosses}`}
         </p>
       </div>
     </div>
   );
 }
+
