@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import TeamSelect from "./[teamId]/select";
+import ArticlesPage from "./articles/page";
 import { getAllTeamIds, getTeamData } from "./espn";
 import ScoresPage from "./scores/page";
 
@@ -14,7 +15,7 @@ export default async function HomePage() {
       <main className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 divide-x divide-gray-200 dark:divide-gray-800">
         <Schedule />
         <ScoresPage />
-        {/* <ConferencePage /> */}
+        <ArticlesPage />
       </main>
     </>
   );

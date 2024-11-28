@@ -124,29 +124,31 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
   };
 }
 
-export async function getAllTeamIds(): Promise<TeamBasicInfo[]> {
+type Article = {
+  headline: string;
+  published: string;
+  link: string;
+};
+
+export async function fetchArticles(): Promise<Article[]> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("days");
 
-  const pagePromises = Array.from({ length: 8 }, (_, i) =>
-    fetch(
-      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${
-        i + 1
-      }`
-    ).then((res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to fetch team IDs: ${res.statusText}`);
-      }
-      return res.json();
-    })
+  const res = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/news`
   );
 
-  const dataArray = await Promise.all(pagePromises);
-  const teams: TeamBasicInfo[] = dataArray.flatMap((data) =>
-    data.sports[0].leagues[0].teams.map((team: any) => team.team)
-  );
+  if (!res.ok) {
+    throw new Error(`Failed to fetch articles: ${res.statusText}`);
+  }
 
-  return teams.sort((a, b) => a.displayName.localeCompare(b.displayName));
+  const data = await res.json();
+
+  return data.articles.slice(0, 20).map((article: any) => ({
+    headline: article.headline,
+    published: article.published,
+    link: article.links.web.href,
+  }));
 }
 
 export async function getTodaySchedule() {
@@ -199,6 +201,31 @@ function formatTeamData(teamData: CompetitorData) {
         })`
       : "N/A",
   };
+}
+
+export async function getAllTeamIds(): Promise<TeamBasicInfo[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const pagePromises = Array.from({ length: 8 }, (_, i) =>
+    fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${
+        i + 1
+      }`
+    ).then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch team IDs: ${res.statusText}`);
+      }
+      return res.json();
+    })
+  );
+
+  const dataArray = await Promise.all(pagePromises);
+  const teams: TeamBasicInfo[] = dataArray.flatMap((data) =>
+    data.sports[0].leagues[0].teams.map((team: any) => team.team)
+  );
+
+  return teams.sort((a, b) => a.displayName.localeCompare(b.displayName));
 }
 
 export async function getAllTeams(): Promise<TeamBasicInfo[]> {
