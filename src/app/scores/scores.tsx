@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { getTodaySchedule } from "./espn";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
+import { getTodaySchedule } from "../espn";
 
 export async function Scores() {
   const { games } = await getTodaySchedule();
@@ -10,9 +10,13 @@ export async function Scores() {
     <div>
       {games.map((game: any, index: number) => {
         return (
-          <div key={index} className={clsx("pb-2", {
-            "border-b border-gray-200 dark:border-gray-800": index !== games.length - 1
-          })}>
+          <div
+            key={index}
+            className={clsx("pb-2", {
+              "border-b border-gray-200 dark:border-gray-800":
+                index !== games.length - 1,
+            })}
+          >
             <p className="flex justify-end mr-4 mt-4 text-sm text-gray-600 dark:text-gray-400">
               {game.status}
             </p>
@@ -20,26 +24,24 @@ export async function Scores() {
             <Team index={index} status={game.status} {...game.homeTeam} />
             <Team index={index} status={game.status} {...game.awayTeam} />
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
-function Team(
-  props: {
-    color: string;
-    logo: string;
-    name: string;
-    rank: number;
-    teamId: string;
-    score: number;
-    winner?: boolean;
-    status: string;
-    record: string;
-    index: number;
-  }
-) {
+function Team(props: {
+  color: string;
+  logo: string;
+  name: string;
+  rank: number;
+  teamId: string;
+  score: number;
+  winner?: boolean;
+  status: string;
+  record: string;
+  index: number;
+}) {
   const faded = props.winner == false && props.status === "Final";
 
   return (
@@ -52,11 +54,18 @@ function Team(
             priority={props.index < 10}
             width={20}
             height={20}
-            className={clsx("size-6 mt-[2px]", { "dark:invert": props.color === "000000" })}
+            className={clsx("size-6 mt-[2px]", {
+              "dark:invert": props.color === "000000",
+            })}
           />
 
           <div className="flex flex-col ml-4 leading-4 gap-y-1">
-            <p className={clsx("font-semibold", { "text-gray-500": faded, "text-black dark:text-white": !faded })}>
+            <p
+              className={clsx("font-semibold", {
+                "text-gray-500": faded,
+                "text-black dark:text-white": !faded,
+              })}
+            >
               {props.rank !== 99 ? (
                 <span className="text-sm uppercase font-normal text-gray-500 mr-2">
                   {props.rank}
@@ -65,18 +74,25 @@ function Team(
               {props.name}
             </p>
 
-            <p className={clsx("text-sm", { "text-gray-500": faded, "text-black dark:text-white": !faded })}>
+            <p
+              className={clsx("text-sm", {
+                "text-gray-500": faded,
+                "text-black dark:text-white": !faded,
+              })}
+            >
               {props.record}
             </p>
           </div>
         </div>
-        <div className={clsx("flex", {
-          "text-gray-500": faded,
-          "text-black dark:text-white": !faded
-        })}>
+        <div
+          className={clsx("flex", {
+            "text-gray-500": faded,
+            "text-black dark:text-white": !faded,
+          })}
+        >
           <p className="leading-normal font-semibold text-xl">{props.score}</p>
         </div>
       </div>
     </Link>
-  )
+  );
 }

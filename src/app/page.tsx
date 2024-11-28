@@ -1,55 +1,57 @@
-import Image from "next/image";
-import { getTeamData } from "./espn";
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import { Scores } from "./scores";
+import { getTeamData } from "./espn";
+import ScoresPage from "./scores/page";
 
 export default async function HomePage() {
+  return (
+    <>
+      <main className="md:hidden">
+        <Schedule />
+      </main>
+      <main className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 divide-x divide-gray-200 dark:divide-gray-800">
+        <Schedule />
+        <ScoresPage />
+        {/* <ConferencePage /> */}
+      </main>
+    </>
+  );
+}
+
+async function Schedule() {
   const team = await getTeamData("21");
 
   const { name, logo, color, record, standing, games } = team;
 
   return (
-    <main className="grid md:grid-cols-2 lg:grid-cols-3">
-      <section className="w-full mx-auto p-6 border-r border-gray-200 dark:border-gray-800">
-        <div className="flex items-center">
-          <Image
-            src={logo}
-            alt="team logo"
-            priority
-            height={24}
-            width={24}
-            className={clsx("size-6", {
-              "dark:invert": color === "000000"
-            })}
-          />
-          <h1 className="font-semibold text-2xl ml-2">{name}</h1>
-        </div>
-        <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
-
-        <h2 className="font-semibold text-xl">Schedule</h2>
-
-        <div>
-          {games.map((game, index) => {
-            return (
-              <Row key={game.id} {...game} index={index} isLast={index === games.length - 1} />
-            )
+    <section className="w-full mx-auto p-6">
+      <div className="flex items-center">
+        <Image
+          src={logo}
+          alt="Logo"
+          priority
+          width={24}
+          height={24}
+          className={clsx("h-6 w-6", {
+            "dark:invert": color === "000000",
           })}
-        </div>
-      </section>
-
-      <section className="w-full mx-auto p-6 border-r border-gray-200 dark:border-gray-800">
-        <h2 className="font-semibold text-2xl">Scores</h2>
-        <Suspense fallback={null}>
-          <Scores />
-        </Suspense>
-      </section>
-
-      <section className="w-full mx-auto p-6 border-r border-gray-200 dark:border-gray-800">
-        <h2 className="font-semibold text-2xl">Division</h2>
-      </section>
-    </main>
+        />
+        <h1 className="font-semibold text-2xl ml-2">{name}</h1>
+      </div>
+      <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
+      <h2 className="font-semibold text-xl">Schedule</h2>
+      <div>
+        {games.map((game, index) => (
+          <Row
+            key={game.id}
+            index={index}
+            isLast={index === games.length - 1}
+            {...game}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -67,10 +69,12 @@ function Row(props: {
   winner?: boolean;
 }) {
   return (
-    <div className={clsx(
-      "flex flex-col min-[450px]:flex-row justify-between px-0 min-[450px]:px-4 py-2",
-      { "border-b border-gray-200 dark:border-gray-800": !props.isLast }
-    )}>
+    <div
+      className={clsx(
+        "flex flex-col min-[450px]:flex-row justify-between px-0 min-[450px]:px-4 py-2",
+        { "border-b border-gray-200 dark:border-gray-800": !props.isLast }
+      )}
+    >
       <div className="flex">
         <Image
           src={props.logo}
@@ -78,12 +82,16 @@ function Row(props: {
           priority={props.index < 10}
           width={20}
           height={20}
-          className={clsx("size-5", { "dark:invert": props.color === "000000" })}
+          className={clsx("size-5", {
+            "dark:invert": props.color === "000000",
+          })}
         />
 
         <Link href={`/${props.teamId}`} className="font-semibold ml-2">
           {props.rank !== 99 ? (
-            <span className="text-sm uppercase font-normal text-gray-500 mr-2">{props.rank}</span>
+            <span className="text-sm uppercase font-normal text-gray-500 mr-2">
+              {props.rank}
+            </span>
           ) : null}
           {props.name}
         </Link>
@@ -113,5 +121,5 @@ function Row(props: {
         )}
       </div>
     </div>
-  )
+  );
 }

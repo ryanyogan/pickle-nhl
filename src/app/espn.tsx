@@ -1,12 +1,11 @@
 import { unstable_cacheLife as cacheLife } from "next/cache";
 
-
 export type TeamBasicInfo = {
   id: string;
   displayName: string;
   logo?: string;
   color?: string;
-}
+};
 
 type GameData = {
   id: string;
@@ -19,7 +18,7 @@ type GameData = {
   homeScore?: number;
   awayScore?: number;
   winner?: boolean;
-}
+};
 
 type TeamData = {
   id: string;
@@ -29,7 +28,7 @@ type TeamData = {
   record: string;
   standing: string;
   games: GameData[];
-}
+};
 
 type CompetitorData = {
   id: string;
@@ -42,7 +41,7 @@ type CompetitorData = {
   winner?: boolean;
   records?: { summary: string }[];
   curatedRank?: { current: number };
-}
+};
 
 type ConferenceRankingEntry = {
   name: string;
@@ -51,20 +50,20 @@ type ConferenceRankingEntry = {
   conferenceWinLoss: string;
   gamesBack: string;
   overallWinnLoss: string;
-}
+};
 
 const DEFAULT_LOGO =
-  'https://a.espncdn.com/i/teamlogos/default-team-logo-500.png';
+  "https://a.espncdn.com/i/teamlogos/default-team-logo-500.png";
 
 function getStat(stats: any[], name: string): string {
   return stats.find((stat: any) => stat.name === name)?.displayName ?? "";
 }
 
 export async function getTeamData(teamId: string): Promise<TeamData> {
-  'use cache';
-  cacheLife('weeks');
+  "use cache";
+  cacheLife("hours");
 
-  if (teamId.includes('teamId')) {
+  if (teamId.includes("teamId")) {
     return {
       id: teamId,
       name: "",
@@ -73,12 +72,12 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
       record: "",
       standing: "",
       games: [],
-    }
+    };
   }
 
   const res = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/${teamId}/schedule`
-  )
+  );
 
   if (!res.ok) {
     throw new Error(`Failed to fetch team data: ${res.statusText}`);
@@ -94,7 +93,7 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
     if (!favoriteTeam || !otherTeam) {
       throw new Error(
         "Expected to find both the favorite team and the opposing team in the event comptitors"
-      )
+      );
     }
 
     const color = otherTeam.team.color ?? "#000000";
@@ -111,7 +110,7 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
       homeScore: favoriteTeam.score?.value,
       awayScore: otherTeam.score?.value,
       winner: favoriteTeam.winner,
-    }
+    };
   });
 
   return {
@@ -121,17 +120,17 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
     color: data.team.color,
     record: data.team.recordSummary,
     standing: data.team.standingSummary,
-    games
-  }
+    games,
+  };
 }
 
 export async function getTodaySchedule() {
   "use cache";
-  cacheLife("days");
+  cacheLife("hours");
 
   const res = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard`
-  )
+  );
   if (!res.ok) {
     throw new Error(`Failed to fetch today's schedule: ${res.statusText}`);
   }
@@ -144,20 +143,20 @@ export async function getTodaySchedule() {
     if (!homeTeam || !awayTeam) {
       throw new Error(
         "Expected to find both the home team and the away team in the event comptitors"
-      )
+      );
     }
 
     return {
       status: event.competitions[0].status.type.shortDetail,
       homeTeam: formatTeamData(homeTeam),
       awayTeam: formatTeamData(awayTeam),
-    }
-  })
+    };
+  });
 
   return {
     date: data.date,
     games,
-  }
+  };
 }
 
 function formatTeamData(teamData: CompetitorData) {
@@ -170,18 +169,22 @@ function formatTeamData(teamData: CompetitorData) {
     score: teamData.score,
     winner: teamData.winner,
     record: teamData.records
-      ? `(${teamData.records[0].summary}, ${teamData.records[3]?.summary ?? "N/A"})`
+      ? `(${teamData.records[0].summary}, ${
+          teamData.records[3]?.summary ?? "N/A"
+        })`
       : "N/A",
-  }
+  };
 }
 
 export async function getAllTeams(): Promise<TeamBasicInfo[]> {
   "use cache";
-  cacheLife('weeks');
+  cacheLife("hours");
 
   const pagePromises = Array.from({ length: 8 }, (_, i) =>
     fetch(
-      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${i + 1}`
+      `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?page=${
+        i + 1
+      }`
     ).then((res) => {
       if (!res.ok) {
         throw new Error(`Failed to fetch team data: ${res.statusText}`);
