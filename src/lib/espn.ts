@@ -46,10 +46,6 @@ type CompetitorData = {
 const DEFAULT_LOGO =
   "https://a.espncdn.com/i/teamlogos/default-team-logo-500.png";
 
-function getStat(stats: any[], name: string): string {
-  return stats.find((stat: any) => stat.name === name)?.displayName ?? "";
-}
-
 export async function getTeamData(teamId: string): Promise<TeamData> {
   "use cache";
   cacheLife("hours");
@@ -113,33 +109,6 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
     standing: data.team.standingSummary,
     games,
   };
-}
-
-type Article = {
-  headline: string;
-  published: string;
-  link: string;
-};
-
-export async function fetchArticles(): Promise<Article[]> {
-  "use cache";
-  cacheLife("days");
-
-  const res = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/news`
-  );
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch articles: ${res.statusText}`);
-  }
-
-  const data = await res.json();
-
-  return data.articles.slice(0, 20).map((article: any) => ({
-    headline: article.headline,
-    published: article.published,
-    link: article.links.web.href,
-  }));
 }
 
 export async function getTodaySchedule() {
