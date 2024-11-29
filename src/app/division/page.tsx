@@ -29,7 +29,6 @@ function Row({
   wins,
   losses,
   otLosses,
-  division,
   teamId
 }: any) {
   return (
@@ -55,9 +54,6 @@ function Row({
         <Link href={`/${teamId}`} className="font-semibold ml-4">
           {name}
         </Link>
-        <div className="text-xs tracking-tighter font-thin text-gray-400 ml-2">
-          {division}
-        </div>
       </div>
       <div className="flex flex-row-reverse justify-end min-[450px]:flex-row">
         <p className="text-gray-700 dark:text-gray-300 tabular-nums">
