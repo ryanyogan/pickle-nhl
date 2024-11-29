@@ -45,9 +45,12 @@ async function Schedule() {
         />
         <h1 className="font-semibold text-2xl ml-2">{name}</h1>
       </div>
-      <h3 className="text-gray-700 dark:text-gray-300 mb-2">{`${record} • ${standing}`}</h3>
 
-      <TeamSelect allTeams={allTeams} teamId={"21"} />
+      <h3 className="text-gray-700 dark:text-gray-400 mb-2">{`${record} • ${standing}`}</h3>
+
+      <div className="mt-4">
+        <TeamSelect allTeams={allTeams} teamId={"21"} />
+      </div>
 
       <h2 className="font-semibold text-xl">Schedule</h2>
       <div>
