@@ -1,7 +1,7 @@
 import { CalendarIcon, ListIcon, TableIcon } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
-import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 
 export const metadata = {
   title: {
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistMono.className} antialiased`}>
+    <html lang="en" className={`${GeistSans.className} antialiased`}>
       <body className="flex flex-col min-h-screen text-black dark:text-white bg-white dark:bg-black antialiased">
         <div className="flex-grow overflow-y-scroll h-[calc(100vh_-_70px)] border-b border-gray-200 dark:border-gray-800 pb-16 md:pb-0">
           {children}
