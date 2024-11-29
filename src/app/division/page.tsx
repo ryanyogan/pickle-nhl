@@ -28,8 +28,7 @@ function Row({
   name,
   wins,
   losses,
-  shootoutLosses,
-  shootoutWins,
+  otLosses,
   division,
   teamId
 }: any) {
@@ -62,7 +61,7 @@ function Row({
       </div>
       <div className="flex flex-row-reverse justify-end min-[450px]:flex-row">
         <p className="text-gray-700 dark:text-gray-300 tabular-nums">
-          {`${wins}-${losses}-${shootoutWins + shootoutLosses}`}
+          {`${wins}-${losses}-${otLosses}`}
         </p>
       </div>
     </div>
