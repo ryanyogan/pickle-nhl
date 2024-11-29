@@ -187,8 +187,7 @@ function formatTeamData(teamData: CompetitorData) {
     score: teamData.score,
     winner: teamData.winner,
     record: teamData.records
-      ? `(${teamData.records[0].summary}, ${teamData.records[3]?.summary ?? "N/A"
-      })`
+      ? `${teamData.records[0].summary}`
       : "N/A",
   };
 }
