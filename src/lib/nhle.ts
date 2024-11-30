@@ -17,13 +17,18 @@ export type TeamStandings = {
   otLosses: number;
 };
 
+/**
+ * Fetches the current NHL standings.
+ * @returns {Promise<TeamStandings[]>} The current NHL standings.
+ * @example
+ * const standings = await fetchStandings();
+* console.log(standings);
+*/
 export async function fetchStandings(): Promise<TeamStandings[]> {
   "use cache";
   cacheLife("hours");
 
-  const today = new Date().toISOString().split("T")[0] ?? "2024-11-28";
-
-  const res = await fetch(`https://api-web.nhle.com/v1/standings/${today}`);
+  const res = await fetch(`https://api-web.nhle.com/v1/standings/now`);
   if (!res.ok) {
     throw new Error(`Failed to fetch team data: ${res.statusText}`);
   }
