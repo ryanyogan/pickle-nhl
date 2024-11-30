@@ -45,7 +45,7 @@ function ScoresLoading() {
 
 export default function ScoresPage() {
   return (
-    <section className="w-full mx-auto p-6">
+    <section className="w-full mx-auto p-3 sm:p-6">
       <h2 className="font-semibold text-2xl">Scores</h2>
       <Suspense fallback={<ScoresLoading />}>
         <Scores />

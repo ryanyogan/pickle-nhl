@@ -7,7 +7,7 @@ export default async function DivisionPage() {
   const standings = await fetchStandings();
 
   return (
-    <section className="w-full mx-auto p-6">
+    <section className="w-full mx-auto p-3 sm:p-6">
       <h2 className="font-semibold text-2xl">Division Standings</h2>
       <h3 className="text-sm text-gray-700 dark:text-gray-300 mb-2 flex justify-end pr-4">
         W - L
