@@ -98,7 +98,7 @@ function Row(props: {
             "dark:invert": props.color === "000000",
           })}
         />
-        <Link href={`/team/`} className="font-semibold text-sm sm:text-base ml-4">
+        <Link href={`/${props.teamId}`} className="font-semibold text-sm sm:text-base ml-4">
           {props.rank !== 99 ? (
             <span className="text-sm uppercase font-normal text-gray-500 mr-2">
               {props.rank}

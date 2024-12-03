@@ -22,11 +22,11 @@ export type TeamStandings = {
  * @returns {Promise<TeamStandings[]>} The current NHL standings.
  * @example
  * const standings = await fetchStandings();
-* console.log(standings);
+ * console.log(standings);
 */
 export async function fetchStandings(): Promise<TeamStandings[]> {
   "use cache";
-  cacheLife("hours");
+  cacheLife("minutes");
 
   const res = await fetch(`https://api-web.nhle.com/v1/standings/now`);
   if (!res.ok) {

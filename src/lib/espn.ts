@@ -113,7 +113,7 @@ export async function getTeamData(teamId: string): Promise<TeamData> {
 
 export async function getTodaySchedule() {
   "use cache";
-  cacheLife("seconds");
+  cacheLife("minutes");
 
   const res = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard`
@@ -155,9 +155,7 @@ function formatTeamData(teamData: CompetitorData) {
     color: teamData.team.color ?? "#000000",
     score: teamData.score,
     winner: teamData.winner,
-    record: teamData.records
-      ? `${teamData.records[0].summary}`
-      : "N/A",
+    record: teamData.records ? `${teamData.records[0].summary}` : "N/A",
   };
 }
 
