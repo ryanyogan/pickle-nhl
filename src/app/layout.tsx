@@ -1,4 +1,3 @@
-import { GeistSans } from "geist/font/sans";
 import { Suspense } from "react";
 import { BottomNav } from "./bottom-nav";
 import "./globals.css";
@@ -25,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.className} antialiased`}>
+    <html lang="en" className="antialiased">
       <body className="flex flex-col min-h-screen text-black dark:text-white bg-white dark:bg-black antialiased">
         <div className="flex-grow overflow-y-scroll h-[calc(100vh_-_80px)] border-b border-gray-200 dark:border-gray-800 pb-16 md:pb-0">
           {children}
