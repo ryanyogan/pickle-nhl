@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllTeamIds, getTeamData } from "src/lib/espn";
 import TeamSelect from "./[teamId]/select";
-import ScoresPage from "./scores/page";
 import DivisionPage from "./division/page";
+import ScoresPage from "./scores/page";
 
 export default async function HomePage() {
   return (
@@ -28,10 +28,10 @@ async function Schedule() {
   ]);
 
   const { name, logo, color, record, standing, games } = team;
-
+  const nextGame = games.find((game) => game.homeScore === undefined);
 
   return (
-    <section className="w-full mx-auto p-3 sm:p-6">
+    <section className="w-full mx-auto p-6">
       <div className="flex items-center">
         <Image
           src={logo}
@@ -47,12 +47,13 @@ async function Schedule() {
       </div>
 
       <h3 className="text-gray-700 dark:text-gray-400 mb-2">{`${record} • ${standing}`}</h3>
-
-      <div className="mt-4">
-        <TeamSelect allTeams={allTeams} teamId={"21"} />
-      </div>
-
+      <TeamSelect allTeams={allTeams} teamId={"21"} />
       <h2 className="font-semibold text-xl">Schedule</h2>
+      <h3 className="font-semibold text-gray-700 dark:text-gray-300">Next</h3>
+      {nextGame && <Row isLast index={0} {...nextGame} />}
+      <h3 className="font-semibold text-gray-700 dark:text-gray-300 mt-4">
+        Full
+      </h3>
       <div>
         {games.map((game, index) => (
           <Row
@@ -83,7 +84,7 @@ function Row(props: {
   return (
     <div
       className={clsx(
-        "flex flex-col min-[450px]:flex-row justify-between px-0 min-[450px]:px-4 py-2",
+        "flex flex-col min-[450px]:flex-row justify-between px-0 py-2",
         { "border-b border-gray-200 dark:border-gray-800": !props.isLast }
       )}
     >
@@ -98,7 +99,10 @@ function Row(props: {
             "dark:invert": props.color === "000000",
           })}
         />
-        <Link href={`/${props.teamId}`} className="font-semibold text-sm sm:text-base ml-4">
+        <Link
+          href={`/${props.teamId}`}
+          className="font-semibold text-sm sm:text-base ml-4"
+        >
           {props.rank !== 99 ? (
             <span className="text-sm uppercase font-normal text-gray-500 mr-2">
               {props.rank}

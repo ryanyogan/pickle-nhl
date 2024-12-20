@@ -17,7 +17,7 @@ export async function Scores() {
                 index !== games.length - 1,
             })}
           >
-            <p className="flex justify-end sm:mr-4 mt-4 text-sm text-gray-600 dark:text-gray-400">
+            <p className="flex justify-end mt-4 text-sm text-gray-600 dark:text-gray-400">
               {game.status}
             </p>
 
@@ -46,7 +46,7 @@ function Team(props: {
 
   return (
     <Link href={`/${props.teamId}`}>
-      <div className="flex flex-row justify-between sm:px-4 py-2 h-[60px]">
+      <div className="flex flex-row justify-between px-0 py-2 h-[60px]">
         <div className="flex">
           <Image
             src={props.logo}
