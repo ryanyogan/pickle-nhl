@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <body className="flex flex-col min-h-screen text-black dark:text-white bg-white dark:bg-black antialiased">
-        <div className="flex-grow overflow-y-scroll h-[calc(100vh_-_80px)] border-b border-gray-200 dark:border-gray-800 pb-16 md:pb-0">
+        <div className="flex-grow overflow-y-scroll h-[calc(100vh_-_80px)] border-b border-gray-200 dark:border-gray-800 mb-20 md:mb-0">
           {children}
         </div>
         <nav className="md:hidden fixed bottom-0 left-0 right-0 h-[80px] bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800">

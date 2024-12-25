@@ -10,7 +10,7 @@ export function BottomNav() {
     <div className="max-w-screen-md mx-auto h-full flex items-center justify-around px-6">
       <Link
         href="/"
-        className={`flex flex-col items-center space-y-1 mb-4 ${
+        className={`flex flex-col items-center space-y-1 ${
           pathname === "/" ? "dark:text-white text-black" : "text-gray-400"
         }`}
       >
@@ -19,7 +19,7 @@ export function BottomNav() {
       </Link>
       <Link
         href="/scores"
-        className={`flex flex-col items-center space-y-1 mb-4 ${
+        className={`flex flex-col items-center space-y-1 ${
           pathname === "/scores"
             ? "dark:text-white text-black"
             : "text-gray-400"
@@ -30,7 +30,7 @@ export function BottomNav() {
       </Link>
       <Link
         href="/division"
-        className={`flex flex-col items-center space-y-1 mb-4 ${
+        className={`flex flex-col items-center space-y-1 ${
           pathname === "/conference"
             ? "dark:text-white text-black"
             : "text-gray-400"

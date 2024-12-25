@@ -48,6 +48,7 @@ function Row({
         {homeScore ? (
           <p className="text-gray-700 dark:text-gray-300 tabular-nums">{`${homeScore}-${awayScore}`}</p>
         ) : null}
+
         {homeScore ? (
           winner ? (
             <p className="font-semibold text-green-700 dark:text-green-500 ml-0 min-[450px]:ml-2 w-5 mr-4 min-[450px]:mr-0 text-center">
@@ -86,6 +87,7 @@ export default async function HomePage(props: {
     getTeamData(params.teamId),
     getAllTeamIds(),
   ]);
+
   const { name, record, color, standing, games, logo } = team;
 
   return (
